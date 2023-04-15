@@ -1,4 +1,5 @@
-import { ChangeEvent, useEffect, useState } from "react"
+import { ChangeEvent, useContext, useEffect, useState } from "react"
+import { DBcontext } from "../App"
 import { openDatabase } from "../indexedDB/indexed"
 
 /**
@@ -10,6 +11,7 @@ import { openDatabase } from "../indexedDB/indexed"
  */
 function TodoCheckbox(todoTitle: string) {
   const [checked, setChecked] = useState<boolean>(false)
+  const db = useContext(DBcontext)
   const dbName = 'todos'
 
   useEffect(() => {
