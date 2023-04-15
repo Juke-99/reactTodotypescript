@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
-import { createContext } from 'vm';
+import { createContext, useEffect, useState } from 'react';
 import './App.css';
 import Todo from './components/Todo';
 
 /// コンテキスト使う DBもコンテキストに入れれば便利
-export const DBcontext = createContext()
+export const DBcontext = createContext<IDBDatabaseContext>({db: null})
 
 function App() {
   const dbName = 'MyDB'
@@ -26,10 +25,16 @@ function App() {
       const db: IDBDatabase = (event.target as IDBOpenDBRequest).result
       setDb(db)
     }
-  }, [db])
+
+    return () => {
+      if(db) {
+        db.close()
+      }
+    }
+  }, [])
 
   return (
-    <DBcontext.Provider value={db}>
+    <DBcontext.Provider value={{db}}>
       <Todo></Todo>
     </DBcontext.Provider>
   );

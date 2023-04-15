@@ -1,8 +1,10 @@
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
 import TodoCheckbox from "./TodoCheckbox"
 import TodoTitle from "./TodoTitle"
+import { DBcontext } from "../App"
 
-function Todo({title, completed}: TodoProps) {
+function Todo() {
+  const db = useContext(DBcontext)
   useEffect(() => {
 
   })
